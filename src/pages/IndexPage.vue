@@ -29,13 +29,17 @@
 </template>
 
 <script setup>
-  import { defineComponent, ref } from 'vue'
+  import { defineComponent } from 'vue'
+  import axios from 'axios'
+  import { onMounted, reactive, ref, toRefs } from 'vue'
+  import { api } from 'boot/axios'
 
   const pagination = ref({
-    sortBy: 'name',
+    // sortBy: 'name',
     descending: false,
     page: 1,
-    rowsPerPage: 5
+    rowsPerPage: 10,
+    // rowsNumber: xx if getting data from a server
   })
 
   const columns = ref([
@@ -176,6 +180,26 @@
     link.click()
     document.body.removeChild(link)
   }
+
+
+  const getList = () => {
+    api({
+      method: 'get',
+      url: '/test/01',
+    }).then(res => {
+      console.log(res);
+    }, (error) => {
+      console.log(error);
+    })
+  }
+
+  // mount
+  onMounted(() => {
+
+    getList()
+
+  })
+
 
   // export default defineComponent({
   //   name: 'IndexPage'
