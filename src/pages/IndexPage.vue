@@ -1,14 +1,28 @@
 <template>
   <!-- <q-page class="flex flex-center">
     <img alt="Quasar logo" src="~assets/quasar-logo-vertical.svg" style="width: 200px; height: 200px">{{$q.version}}
-
-
   </q-page> -->
 
 
-  <div class="q-pa-md">
+  <!-- <div class="q-pa-md">
     <q-table title="Treats" :rows="rows" :columns="columns" row-key="name" />
-  </div>
+  </div> -->
+
+  <q-page class="q-pa-md">
+    <q-card>
+      <q-table title="Coin" :rows="data" :columns="columns" row-key="name" v-model:pagination="pagination">
+        <template v-slot:top-right>
+          <q-btn @click="invoiceDialog=true" flat size="lg" icon="add_circle" class="q-mr-xs q-pt-sm q-px-none q-pb-sm" />
+
+          <q-icon name="archive" size="md" class="cursor-pointer" @click="exportTable">
+            <q-tooltip>
+              Export to CSV
+            </q-tooltip>
+          </q-icon>
+        </template>
+      </q-table>
+    </q-card>
+  </q-page>
 
 
 
@@ -19,7 +33,7 @@
   import { defineComponent } from 'vue'
 
 
-  const columns = [
+  const columns = ref([
     {
       name: 'name',
       required: true,
@@ -36,9 +50,9 @@
     { name: 'sodium', label: 'Sodium (mg)', field: 'sodium' },
     { name: 'calcium', label: 'Calcium (%)', field: 'calcium', sortable: true, sort: (a, b) => parseInt(a, 10) - parseInt(b, 10) },
     { name: 'iron', label: 'Iron (%)', field: 'iron', sortable: true, sort: (a, b) => parseInt(a, 10) - parseInt(b, 10) }
-  ]
+  ])
 
-  const rows = [
+  const rows = ref([
     {
       name: 'Frozen Yogurt',
       calories: 159,
@@ -139,7 +153,7 @@
       calcium: '12%',
       iron: '6%'
     }
-  ]
+  ])
 
   // export default defineComponent({
   //   name: 'IndexPage'
