@@ -10,10 +10,9 @@
 
   <q-page class="q-pa-md">
     <q-card>
-      <q-table title="Coin" :rows="data" :columns="columns" row-key="name" v-model:pagination="pagination">
+      <q-table title="Coin" :rows="rows" :columns="columns" row-key="name" v-model:pagination="pagination">
         <template v-slot:top-right>
-          <q-btn @click="invoiceDialog=true" flat size="lg" icon="add_circle" class="q-mr-xs q-pt-sm q-px-none q-pb-sm" />
-
+          <!-- <q-btn @click="invoiceDialog=true" flat size="lg" icon="add_circle" class="q-mr-xs q-pt-sm q-px-none q-pb-sm" /> -->
           <q-icon name="archive" size="md" class="cursor-pointer" @click="exportTable">
             <q-tooltip>
               Export to CSV
@@ -30,8 +29,14 @@
 </template>
 
 <script setup>
-  import { defineComponent } from 'vue'
+  import { defineComponent, ref } from 'vue'
 
+  const pagination = ref({
+    sortBy: 'name',
+    descending: false,
+    page: 1,
+    rowsPerPage: 5
+  })
 
   const columns = ref([
     {
@@ -154,6 +159,23 @@
       iron: '6%'
     }
   ])
+
+  function exportTable() {
+    const data = rows.value.map(row => columns.value.map(column => row[column.name]))
+    const csvContent = [
+      columns.value.map(column => column.label).join(','),
+      ...data.map(row => row.join(','))
+    ].join('\n')
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' })
+    const link = document.createElement('a')
+    const url = URL.createObjectURL(blob)
+    link.setAttribute('href', url)
+    link.setAttribute('download', 'data.csv')
+    link.style.visibility = 'hidden'
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+  }
 
   // export default defineComponent({
   //   name: 'IndexPage'
