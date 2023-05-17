@@ -8,7 +8,8 @@ import axios from "axios";
 // "export default () => {}" function below (which runs individually
 // for each client)
 const api = axios.create({
-  baseURL: "http://localhost:9001",
+  // baseURL: "http://localhost:9001",
+  baseURL: "https://novel.pangyu.net",
   // cors
   headers: {
     "Access-Control-Allow-Origin": "*",
