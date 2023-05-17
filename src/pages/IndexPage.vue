@@ -38,7 +38,7 @@
     // sortBy: 'name',
     descending: false,
     page: 1,
-    rowsPerPage: 10,
+    rowsPerPage: 30,
     // rowsNumber: xx if getting data from a server
   })
 
@@ -46,22 +46,49 @@
     {
       name: 'name',
       required: true,
-      label: 'Dessert (100g serving)',
-      align: 'left',
+      label: 'NAME',
+      align: 'center',
       field: row => row.name,
       format: val => `${val}`,
+      // headerStyle: 'font-size: 16px; font-weight: 500; color: #000000;',
+      // headerClasses: 'headerCls'
       // sortable: true
     },
-    { name: 'calories', align: 'center', label: 'Calories', field: 'calories', sortable: true },
-    { name: 'fat', label: 'Fat (g)', field: 'fat', sortable: true },
-    { name: 'carbs', label: 'Carbs (g)', field: 'carbs' },
-    { name: 'protein', label: 'Protein (g)', field: 'protein' },
-    { name: 'sodium', label: 'Sodium (mg)', field: 'sodium' },
-    { name: 'calcium', label: 'Calcium (%)', field: 'calcium', sortable: true, sort: (a, b) => parseInt(a, 10) - parseInt(b, 10) },
-    { name: 'iron', label: 'Iron (%)', field: 'iron', sortable: true, sort: (a, b) => parseInt(a, 10) - parseInt(b, 10) }
+    {
+      name: 'price', align: 'center', label: 'PRICE', field: 'price', sortable: true, format: val => `＄ ${val}`,
+    },
+    {
+      name: 'changeRate', label: '24H%', field: 'changeRate', sortable: true,
+      format: val => `${val}%`,
+      style: row => {
+        if (row.changeRate > 0) {
+          return 'color: var(--q-positive)!important;'
+        } else if (row.changeRate < 0) {
+          return 'color: var(--q-negative)!important;'
+        } else {
+          return 'color: #000000;'
+        }
+      }
+    },
+    { name: 'market', label: 'MARKET CAP', field: 'market', format: val => `＄ ${addCommasToNumber(val)}` },
+    { name: 'volume', label: 'VOLUME(24H)', field: 'volume', format: val => `＄ ${addCommasToNumber(val)}` },
+    { name: 'supply', label: 'SUPPLY', field: 'supply', format: val => `${addCommasToNumber(val)}` },
+    { name: 'holders', label: 'HOLDERS', field: 'holders', sortable: true, sort: (a, b) => parseInt(a, 10) - parseInt(b, 10) },
   ])
 
   const rows = ref([])
+
+  function addCommasToNumber(numberString) {
+    numberString = numberString + ''
+    // 先将字符串反转，方便后续每隔三位插入逗号
+    var reversedString = numberString.split('').reverse().join('');
+
+    // 使用正则表达式，在每隔三位后面插入逗号
+    var numberWithCommas = reversedString.replace(/(\d{3})(?=\d)/g, '$1,');
+
+    // 最后再次反转字符串并返回结果
+    return numberWithCommas.split('').reverse().join('');
+  }
 
   function exportTable() {
     const data = rows.value.map(row => columns.value.map(column => row[column.name]))
@@ -106,3 +133,29 @@
   //   name: 'IndexPage'
   // })
 </script>
+
+<style scoped>
+  /* ::v-deep */
+  :deep(.headerCls) {
+    font-size: 16px;
+    font-weight: 500;
+    color: #000000;
+  }
+
+  :deep(.q-table thead th) {
+    color: var(--q-meta);
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.5rem;
+    text-transform: uppercase;
+  }
+
+  :deep(.q-table tbody tr td) {
+    border-bottom-width: 0 !important;
+    font-size: 15px !important;
+    font-weight: 700;
+    line-height: 1.5rem !important;
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+  }
+</style>
