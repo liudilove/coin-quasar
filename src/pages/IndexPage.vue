@@ -10,7 +10,7 @@
 
   <q-page class="q-pa-md">
     <q-card>
-      <q-table title="Coin" :rows="rows" :columns="columns" row-key="name" v-model:pagination="pagination">
+      <q-table title="" :rows="rows" :columns="columns" row-key="name" v-model:pagination="pagination">
         <template v-slot:top-right>
           <!-- <q-btn @click="invoiceDialog=true" flat size="lg" icon="add_circle" class="q-mr-xs q-pt-sm q-px-none q-pb-sm" /> -->
           <q-icon name="archive" size="md" class="cursor-pointer" @click="exportTable">
