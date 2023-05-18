@@ -10,7 +10,7 @@
 
   <q-page class="q-pa-md">
     <q-card>
-      <q-table title="" :rows="rows" :columns="columns" row-key="name" v-model:pagination="pagination">
+      <q-table :title="'Update Time:    ' + (rows.length>0 ? rows[0].createTime : '')" :rows="rows" :columns="columns" row-key="name" v-model:pagination="pagination">
         <template v-slot:top-right>
           <!-- <q-btn @click="invoiceDialog=true" flat size="lg" icon="add_circle" class="q-mr-xs q-pt-sm q-px-none q-pb-sm" /> -->
           <q-icon name="archive" size="md" class="cursor-pointer" @click="exportTable">
@@ -157,5 +157,10 @@
     line-height: 1.5rem !important;
     padding-bottom: 1rem;
     padding-top: 1rem;
+  }
+
+  :deep(.q-table__title) {
+    font-size: 16px;
+    color: #7d7d7d;
   }
 </style>
