@@ -8,6 +8,26 @@
         </q-toolbar-title>
 
         <!-- <div>Quasar v{{ $q.version }}</div> -->
+
+        <div>
+          <q-btn class="q-mr-xs bg-grey-3 q-py-xs q-px-sm custom-border" flat @click="$q.dark.toggle()" color="black" :icon="$q.dark.isActive ? 'nights_stay' : 'wb_sunny'" />
+        </div>
+
+        <div>
+          <q-btn class="q-ml-xs bg-grey-3 q-py-xs q-px-sm custom-border" flat>
+            <a href="http://www.yinhanglilv.net" target="_blank" title="Donate" style="text-decoration: none">
+              <q-icon name="favorite" style="color: #eb5daa" />
+            </a>
+          </q-btn>
+        </div>
+
+        <div class="q-mr-xs" style="margin-left:20px;">
+          <q-btn no-caps flat class="bg-grey-3 custom-border" to="/">
+            <q-icon size="xs" style="color: rgb(250, 108, 14)" name="login" />
+            <span class="text-black q-ml-sm">Log In</span>
+          </q-btn>
+        </div>
+
       </q-toolbar>
     </q-header>
 
@@ -106,3 +126,10 @@
     }
   })
 </script>
+
+
+<style>
+  .custom-border {
+    border-radius: 5px;
+  }
+</style>
