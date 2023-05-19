@@ -3,12 +3,18 @@
     <q-header elevated>
       <q-toolbar>
         <!-- <q-btn flat dense round icon="menu" aria-label="Menu" @click="toggleLeftDrawer" /> -->
+
         <q-toolbar-title>
           Coin Brc20 Statistics
+
+          <q-btn-group outline class="q-ml-lg">
+            <q-btn outline color="white" label="排行" to="/" />
+            <q-btn outline color="white" label="实时快讯" to="/news" />
+          </q-btn-group>
+
         </q-toolbar-title>
 
         <!-- <div>Quasar v{{ $q.version }}</div> -->
-
         <div>
           <q-btn class="q-mr-xs bg-grey-3 q-py-xs q-px-sm custom-border" flat @click="$q.dark.toggle()" color="black" :icon="$q.dark.isActive ? 'nights_stay' : 'wb_sunny'" />
         </div>
