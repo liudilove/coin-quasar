@@ -10,7 +10,7 @@
 
   <q-page class="q-pa-md">
     <q-card>
-      <q-table :title="'' + (rows.length>0 ? rows[0].createTime : '')" :rows="rows" :columns="columns" row-key="name" v-model:pagination="pagination">
+      <q-table :rows="rows" :columns="columns" row-key="name" v-model:pagination="pagination">
         <template v-slot:top-right>
           <!-- <q-btn @click="invoiceDialog=true" flat size="lg" icon="add_circle" class="q-mr-xs q-pt-sm q-px-none q-pb-sm" /> -->
           <q-icon name="archive" size="md" class="cursor-pointer" @click="exportTable">
@@ -21,10 +21,11 @@
         </template>
       </q-table>
     </q-card>
+
+    <q-banner class="bg-grey-3" style="text-align: right;">
+      <span class="text-black">Updated at: {{rows.length>0 ? rows[0].createTime : ''}}</span>
+    </q-banner>
   </q-page>
-
-
-
 
 </template>
 

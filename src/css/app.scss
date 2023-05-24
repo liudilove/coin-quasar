@@ -1,1 +1,37 @@
 // app global css in SCSS form
+
+.css-14e5vs5 {
+  margin: 12px 0px 0px;
+  border-color: rgba(85, 65, 5, 0.06);
+}
+
+:where(.css-ph9edi).ant-divider-horizontal {
+  display: flex;
+  clear: both;
+  width: 100%;
+  min-width: 100%;
+  margin: 24px 0;
+}
+
+:where(.css-ph9edi).ant-divider {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  color: rgba(0, 0, 0, 0.88);
+  font-size: 14px;
+  line-height: 1.5714285714285714;
+  list-style: none;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  border-block-start: 1px solid rgba(5, 5, 5, 0.06);
+}
+
+:where(.css-ph9edi)[class^="ant-divider"],
+:where(.css-ph9edi)[class*=" ant-divider"] {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-size: 14px;
+  box-sizing: border-box;
+}

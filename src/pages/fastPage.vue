@@ -1,6 +1,10 @@
 <template>
   <q-page class="column q-pa-xl">
 
+    <div>
+      <h1>fast</h1>
+    </div>
+
     <div class="news-list">
       <div class="news-content" v-for="val in newslist" :key="val.title">
         <div class="news-head">{{val.title}}</div>
@@ -9,26 +13,14 @@
         <div class="ant-divider css-ph9edi ant-divider-horizontal css-14e5vs5 e1qawwz22" role="separator"></div>
       </div>
     </div>
-
-    <div class="q-pa-lg flex flex-center">
-      <q-pagination v-model="currentPage" :max="totalPage" :max-pages="totalPage" :min="1" :input="true" boundary-numbers />
-    </div>
-
   </q-page>
 
 </template>
 
 <script setup>
   import axios from 'axios'
-  import { onMounted, reactive, ref, toRefs, computed, watch } from 'vue'
+  import { onMounted, reactive, ref, toRefs } from 'vue'
   import { api } from 'boot/axios'
-
-  const pageSize = 5
-  const total = 20
-  const currentPage = ref(1)
-
-  // 计算总页数
-  const totalPage = computed(() => Math.ceil(total / pageSize));
 
 
   const newslist = ref([
@@ -43,12 +35,6 @@
   newslist.value = copiedNewslist;
 
   console.log('newslist:', newslist.value);
-
-  // 处理页码变化事件
-  watch(currentPage, (newPage, oldPage) => {
-    console.log('当前页码:', newPage);
-    // 执行其他页码变化的逻辑
-  });
 
 
 
