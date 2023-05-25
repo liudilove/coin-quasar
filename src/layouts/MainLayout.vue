@@ -49,6 +49,16 @@
 
         <div style="width:350px;" class="q-pt-md right-card bg-grey-2">
 
+          <div class=" q-pa-md q-mt-md" style="border-radius: 10px;background: #fff;">
+            <h4>实时快讯</h4>
+            <div class="q-pa-xs">
+              <div v-for="val in fastList" :key="val.time">
+                <div>{{val.time}}</div>
+                <p>{{val.content}}</p>
+              </div>
+            </div>
+          </div>
+
           <div class="q-pa-md" style="border-radius: 10px;background: #fff;">
             <h4>Unisat 预计 Mint 成本</h4>
             <div class="q-pa-sm full-width">
@@ -59,16 +69,6 @@
             </div>
           </div>
 
-          <div class=" q-pa-md q-mt-md" style="border-radius: 10px;background: #fff;">
-            <h4>实时快讯</h4>
-            <div class="q-pa-xs">
-              <div v-for="val in fastList" :key="val.time">
-                <div>{{val.time}}</div>
-                <p>{{val.content}}</p>
-              </div>
-
-            </div>
-          </div>
 
         </div>
       </div>
@@ -89,6 +89,8 @@
 <script>
   import { ref, onMounted, onUpdated, onUnmounted, defineComponent } from 'vue';
   import EssentialLink from 'components/EssentialLink.vue'
+  import { api } from 'boot/axios'
+  import { dateFormat } from 'boot/DateUtils'
 
   const linksList = [
     {
@@ -146,6 +148,7 @@
       const leftDrawerOpen = ref(false)
 
       onMounted(() => {
+        getFastNews()
         console.log('mounted!', unisatList.length)
       })
       onUpdated(() => {
@@ -163,13 +166,29 @@
 
       const flattenedList = unisatList.flatMap(obj => Object.values(obj));
 
-      const fastList = [
-        { time: '17:31', content: '多位用户反映 Multichain 跨链资产长时间未到账，MULTI 24 小时跌逾 10%' },
-        { time: '17:32', content: '多位用户反映 Multichain 跨链资产长时间未到账，MULTI 24 小时跌逾 10%' },
-        { time: '17:33', content: '多位用户反映 Multichain 跨链资产长时间未到账，MULTI 24 小时跌逾 10%' },
-        { time: '17:33', content: '多位用户反映 Multichain 跨链资产长时间未到账，MULTI 24 小时跌逾 10%' },
-        { time: '17:33', content: '多位用户反映 Multichain 跨链资产长时间未到账，MULTI 24 小时跌逾 10%' },
-      ]
+      const fastList = ref([
+        // { time: '17:31', content: '多位用户反映 Multichain 跨链资产长时间未到账，MULTI 24 小时跌逾 10%' },
+      ])
+
+      function getFastNews() {
+
+        api({
+          url: 'https://api.shandian.io/front/index/getNewsList?max_results=5&next_token=',
+          method: 'get',
+        }).then(res => {
+
+          fastList.value = []
+          res.data.data.list.forEach(element => {
+            console.log(element.publish_at);
+            let time = dateFormat(new Date(element.publish_at * 1000), 'hh:mm')
+            fastList.value.push({ time: time, content: element.title })
+          });
+          console.log('fastList', fastList.value)
+
+        }, (error) => {
+          console.log(error);
+        })
+      }
 
       return {
         essentialLinks: linksList,
@@ -179,7 +198,8 @@
         },
         unisatList,
         flattenedList,
-        fastList
+        fastList,
+
 
       }
 
