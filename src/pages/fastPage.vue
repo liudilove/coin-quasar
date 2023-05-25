@@ -1,18 +1,25 @@
 <template>
   <q-page class="column q-pa-xl">
 
-    <div>
-      <h1>fast</h1>
+    <div class="q-px-lg q-pb-md">
+      <q-timeline color="secondary">
+        <!-- <q-timeline-entry heading body="Timeline heading" /> -->
+        <q-timeline-entry title="Event Title" subtitle="February 22, 1986" :body="body" />
+
+        <q-timeline-entry title="Event Title" subtitle="February 21, 1986" :body="body" />
+
+        <q-timeline-entry title="Event Title" subtitle="February 22, 1986" :body="body" />
+
+        <q-timeline-entry title="Event Title" subtitle="February 22, 1986" :body="body" />
+
+        <q-timeline-entry title="Event Title" subtitle="February 22, 1986" :body="body" />
+
+        <q-timeline-entry title="Event Title" subtitle="February 22, 1986" :body="body" />
+
+        <q-timeline-entry title="Event Title" subtitle="February 22, 1986" :body="body" />
+      </q-timeline>
     </div>
 
-    <div class="news-list">
-      <div class="news-content" v-for="val in newslist" :key="val.title">
-        <div class="news-head">{{val.title}}</div>
-        <div class="css-ruud20">{{val.time}}</div>
-        <div class="news-text">{{val.content}}</div>
-        <div class="ant-divider css-ph9edi ant-divider-horizontal css-14e5vs5 e1qawwz22" role="separator"></div>
-      </div>
-    </div>
   </q-page>
 
 </template>
@@ -21,29 +28,45 @@
   import axios from 'axios'
   import { onMounted, reactive, ref, toRefs } from 'vue'
   import { api } from 'boot/axios'
+  import { dateFormat } from 'boot/DateUtils'
 
 
-  const newslist = ref([
-    { title: '金融监督、隐私和 CBDC：为什么政府要无现金化？', time: '9 分钟前· Cointelegraph', content: '加密货币和公民自由律师 Marta Belcher 加入 The Agenda 播客，剖析金融监管基础设施，并警告央行数字货币的潜在后果。 Belcher 担任 Filecoin 基金会主席和协议实验室的总法律顾问和政策负责人。她警告称，央行数字' },
-  ])
+  const body = 'xxxxxxxxxxxxxxxxxx'
 
-  const copiedNewslist = [];
-  for (let i = 0; i < 5; i++) {
-    copiedNewslist.push({ ...newslist.value[0] });
+  //
+
+
+
+  const fastList = ref([])
+
+
+  function getList() {
+
+    api({
+      url: 'https://www.shandian.io/_next/data/fBm4ojp-BL9ToMJpNHRHt/newsletter.json',
+      method: 'get',
+    }).then(res => {
+
+      fastList.value = []
+
+      res.data.pageProps.list.forEach(element => {
+
+        console.log(element.publish_at);
+        let time = dateFormat(new Date(element.publish_at * 1000), 'hh:mm')
+
+        fastList.value.push({ title: element.title, time: time, content: element.content })
+      });
+
+    }, (error) => {
+      console.log(error);
+    })
   }
-
-  newslist.value = copiedNewslist;
-
-  console.log('newslist:', newslist.value);
-
-
-
 
 
   // mount
   onMounted(() => {
 
-
+    getList()
   })
 
 </script>
