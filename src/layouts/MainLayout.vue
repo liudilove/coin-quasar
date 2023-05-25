@@ -12,6 +12,11 @@
             <q-btn outline color="white" label="头条新闻" to="/news" />
             <q-btn outline color="white" label="实时快讯" to="/fast" />
             <q-btn outline color="white" label="数字钱包" to="/wallet" />
+            <q-btn outline color="white" label="">
+              <a href="http://inscribe.xykzs.cn/" target="_blank" title="inscribe" style="text-decoration: none;font-size:16px;color:#fff">
+                inscribe
+              </a>
+            </q-btn>
           </q-btn-group>
 
         </q-toolbar-title>
