@@ -60,6 +60,8 @@ yarn start
 
 (https://nvm.uihtm.com/#nvm-linux)[https://nvm.uihtm.com/#nvm-linux]
 
+npm config set registry https://registry.npm.taobao.org
+
 安装 yarn
 (https://blog.csdn.net/weixin_40808668/article/details/122606543)[https://blog.csdn.net/weixin_40808668/article/details/122606543]
 
