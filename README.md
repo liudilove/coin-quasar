@@ -65,12 +65,19 @@ npm config set registry https://registry.npm.taobao.org
 安装 yarn
 (https://blog.csdn.net/weixin_40808668/article/details/122606543)[https://blog.csdn.net/weixin_40808668/article/details/122606543]
 
+npm install -g yarn
+yarn --version
+yarn config set registry https://registry.npm.taobao.org -g
+yarn config set sass_binary_site http://cdn.npm.taobao.org/dist/node-sass -g
+
 ---
 
 安装 pm2
 (https://m.php.cn/faq/508007.html)[https://m.php.cn/faq/508007.html]
 npm install -g pm2
 pm2 start app.js
+
+npm install -g pm2
 
 ---
 
